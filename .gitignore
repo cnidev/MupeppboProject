@@ -3,3 +3,5 @@ db.sqlite3
 mupeppbo_project/__pycache__/
 users/__pycache__/
 users/migrations/__pycache__/
+smsapp/__pycache__/
+smsapp/migrations/__pycache__/
