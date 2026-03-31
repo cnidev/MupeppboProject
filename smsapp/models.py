@@ -13,3 +13,19 @@ class Mutualist(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+    
+
+
+class Message(models.Model):
+    """This class represent a message sent to a mutualist"""
+    
+    mutualists = models.ManyToManyField(Mutualist, related_name="messages")
+    title = models.CharField("Titre du message", max_length=100)
+    content = models.TextField("Contenu du message")
+
+    class Meta:
+        verbose_name = "Message"
+        verbose_name_plural = "Messages"
+
+    def __str__(self):
+        return f"Message {self.title}"
