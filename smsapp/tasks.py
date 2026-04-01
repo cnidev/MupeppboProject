@@ -22,7 +22,7 @@ def get_sms_api_key():
     return response.json().get('access_token')
 
 
-@shared_task()
+@shared_task(rate_limit='5/s')
 def send_sms(phone_number, message_content):
     """Envoie un SMS à un numéro de téléphone donné"""
 
@@ -49,3 +49,8 @@ def send_sms(phone_number, message_content):
     url = f"https://api.orange.com/smsmessaging/v1/outbound/tel%3A%2B225{os.getenv('SENDER_NUMBER')}/requests"
 
     response = requests.post(url, json=data, headers=headers)
+    
+    if response.status_code == 201:
+        print(f"SMS envoyé avec succès à {phone_number}")
+    else:
+        print(f"Erreur lors de l'envoi du SMS à {phone_number}: {response.status_code} - {response.text}")
