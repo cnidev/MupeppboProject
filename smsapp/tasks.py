@@ -32,6 +32,7 @@ def send_sms(phone_number, message_content):
         cache.set('sms_api_key', api_key, timeout=3600)
 
     headers = {
+        'Authorization': f"Bearer {api_key}",
         "content-type": "application/json",
     }
 
@@ -41,7 +42,7 @@ def send_sms(phone_number, message_content):
             "senderAddress": f"tel:+225{os.getenv('SENDER_NUMBER')}",
             "senderName": f"{os.getenv('SENDER_NAME')}",
             "outboundSMSTextMessage": {
-                "message": message_content
+                "message": f"{message_content}"
             }
         }
     }
